@@ -17,6 +17,12 @@ class HomeScreen extends React.Component {
                 <View style={styles.container}>
                     <SearchBar />
                     <Button
+                        onPress={ () => navigate("SearchScreen")}
+                        title="Go"
+                        color="#fff"/>
+                </View>
+                <View style={styles.container}>
+                    <Button
                         onPress={ () => navigate("Allergies") }
                         title="Select Allergies..."
                         color="#fff"/>
@@ -28,6 +34,7 @@ class HomeScreen extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
+        flexDirection: 'row',
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
