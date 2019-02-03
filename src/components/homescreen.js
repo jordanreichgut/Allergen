@@ -31,12 +31,6 @@ class HomeScreen extends React.Component {
                         title="Go"
                         color="#fff"/>
                 </View>
-                <View style={styles.container}>
-                    <Button
-                        onPress={ () => navigate("Allergies") }
-                        title="Select Allergies..."
-                        color="#fff"/>
-                </View>
             </ImageBackground>
         )
     }

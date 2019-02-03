@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, ScrollView, StyleSheet, Text, Button} from 'react-native';
+import AllergySelection from './AllergySelection.js';
  
 function adjusted(names) {
   let len = names.length;
@@ -98,7 +99,7 @@ class SearchScreen extends Component {
             <Button 
               onPress={ 
                 () => {this.setState({selected: {item}})
-                navigate("ProductInfo", {data: {ndb: item.ndb}})}
+                navigate("AllergySelection", {data: {ndb: item.ndb}})}
               }
               title = {item.name}
               className = "text-left"/>

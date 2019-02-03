@@ -1,8 +1,8 @@
 import React from 'react';
-import { View, ScrollView, Text, StyleSheet} from 'react-native';
+import { View, ScrollView, Text, StyleSheet, Button} from 'react-native';
 import {ImageBackground} from 'react-native';
 
-class AllergyScreen extends React.Component {
+export default class AllergySelection extends React.Component {
     static navigationOptions = {
         title: "Select Allergies",
     };
@@ -113,6 +113,13 @@ class AllergyScreen extends React.Component {
                         style={this.state.treeNutsChecked ? styles.checked : styles.unchecked}>Tree Nuts</Text>
                     <Text onPress={this.handleSoyPress} 
                         style={this.state.soyChecked ? styles.checked : styles.unchecked}>Soy</Text>
+
+                    <Button
+                        onPress={ () => navigate("ProductInfo", {data: {ndb: this.props.navigation.state.params.data.ndb, 
+                                                                        Allergens: this.state.Allergens}})}
+                        title="Check Product"
+                        color="#fff"/>
+
                 </ScrollView>
             </ImageBackground>
         );
@@ -139,4 +146,3 @@ const styles = StyleSheet.create({
     },
 });
 
-export default AllergyScreen;
