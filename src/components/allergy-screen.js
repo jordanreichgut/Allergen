@@ -19,7 +19,6 @@ class AllergyScreen extends React.Component {
             peanutsChecked: false,
             treeNutsChecked: false,
             soyChecked: false,
-            $trawberryChecked: false,
     
             Allergens: [],
         };
@@ -34,7 +33,6 @@ class AllergyScreen extends React.Component {
         this.handlePeanutsPress = this.handlePeanutsPress.bind(this);
         this.handleTreeNutsPress = this.handleTreeNutsPress.bind(this);
         this.handleSoyPress = this.handleSoyPress.bind(this);
-        this.handle$trawberryPress = this.handle$trawberryPress.bind(this);
     }
 
     remove(array, element) {
@@ -86,10 +84,6 @@ class AllergyScreen extends React.Component {
     handleSoyPress() {
         this.setState({soyChecked: (this.state.soyChecked == true) ? false : true});
         this.state.Allergens.includes('Soy') ? this.remove(this.state.Allergens, 'Soy') : this.state.Allergens.push('Soy');
-    }
-    handle$trawberryPress() {
-        this.setState({$trawberryChecked: (this.state.$trawberryChecked == true) ? false : true});
-        this.state.Allergens.includes('$trawberries') ? this.remove(this.state.Allergens, '$trawberries') : this.state.Allergens.push('$trawberries');
     }
 
     render() {
