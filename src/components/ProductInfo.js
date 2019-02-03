@@ -12,7 +12,11 @@ export default class ProductInfo extends React.Component {
     this.state = {
         data: null, 
         loaded: true, 
-        error: null
+        error: null,
+        Ingredients: [],
+        IngredientColor: [],
+        Allergic: [],
+        NonAllergic: [],
     }
   }
 
@@ -37,6 +41,8 @@ export default class ProductInfo extends React.Component {
         var bodyText = JSON.parse(res._bodyText)
         var ingredientsString = bodyText.report.food.ing.desc;
         var ingredients = ingredientsString.split(",");
+        var allergicList = [];
+        var nonallergicList = [];
 
         // Format ingredients list
         for (var i = 0; i < ingredients.length; i++) {
@@ -76,7 +82,8 @@ export default class ProductInfo extends React.Component {
           console.log(ingredients[i]);
         }
 
-
+        this.setState({Ingredients: ingredients});
+        this.setState({IngredientColor: ingredientColor});
 
         var allergenDict = {
           "Corn": ["acetic acid", "alcohol", "alpha tocopherol", "ascorbic acid", "aspartame", "astaxanthin"],
@@ -109,6 +116,17 @@ export default class ProductInfo extends React.Component {
         }
 
 
+        for (var i = 0; i < ingredients.length; i++) {
+          if (ingredientColor[i] == "green") {
+            nonallergicList.push(ingredients[i])
+          } else {
+            allergicList.push(ingredients[i]);
+          }
+        }
+        
+        this.setState({Allergic: allergicList});
+        this.setState({NonAllergic: nonallergicList});
+
       })
       .then(this.showData)
       .catch(this.badStuff)
@@ -119,7 +137,13 @@ export default class ProductInfo extends React.Component {
   render() {
     return (
       <View>
-        <Text style={styles.txt}>This is the API call screen!</Text>
+        
+        {this.state.Allergic.map((item, key) => (
+          <Text key={key} style={styles.allergic}>{item}</Text>
+        ))}
+        {this.state.NonAllergic.map((item, key) => (
+          <Text key={key} style={styles.nonAllergic} >{item}</Text>
+        ))}
         <Button title="Get data" onPress={this.getData.bind(this)} />
       </View>
     );
@@ -141,5 +165,11 @@ const styles = StyleSheet.create({
   txt:{
     fontSize: 24,
     color: '#333'
-  }
+  },
+  allergic: {
+    color: 'red'
+  },
+  notAllergic: {
+    color: 'green'
+  },
 });
