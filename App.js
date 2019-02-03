@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import SearchResults from './src/components/SearchResults';
+import ProductInfo from './src/components/ProductInfo';
 
 export default class App extends React.Component {
 

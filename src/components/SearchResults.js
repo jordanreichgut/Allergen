@@ -55,11 +55,7 @@ export default class SearchResults extends React.Component {
             let ndbs = [];
             let final = [];
 
-            for (var i = 0; i < arr.length; i++) {
-              console.log("\n\n\n" + arr[i] + "\n\n\n");
-            }
-
-            // Populate names array with names (keeps garbage element)
+            // Populate names array with names
             for (var i = 0; i < arr.length; i += 2) {
               var j = arr[i].indexOf("<");
               element = arr[i].substring(10, j-10);
@@ -69,6 +65,8 @@ export default class SearchResults extends React.Component {
 
               names.push(trimmed);
             }
+
+            names.shift(); // Remove garbage element
 
             // Populate ndbs array with NDBs
             for (var i = 1; i < arr.length; i += 2) {
@@ -83,8 +81,7 @@ export default class SearchResults extends React.Component {
               final.push({"name": names[i], "ndb": ndbs[i]})
             }
 
-            final.shift();
-
+            console.log("FINAL ARRAY: ");
             for (var i = 0; i < final.length; i++) {
               console.log(final[i]);
             }
