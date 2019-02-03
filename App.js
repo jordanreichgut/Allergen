@@ -3,6 +3,8 @@ import { StyleSheet, Text, View } from 'react-native';
 import SearchResults from './src/components/SearchResults';
 import ProductInfo from './src/components/ProductInfo';
 
+// jordan2
+
 export default class App extends React.Component {
 
   render() {

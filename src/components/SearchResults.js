@@ -1,6 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, View , Button, ScrollView} from 'react-native';
 
+// jordan2
+
 /* Takes search term from SearchBar.js,
    constructs URL to search database,
    and returns a string array with the search results

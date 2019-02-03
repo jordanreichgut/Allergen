@@ -1,6 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, View , Button, ScrollView} from 'react-native';
 
+// jordan2
+
 /* Takes the selected {name, NDB} from SearchResults,
    plugs the NDB into the URL to retrieve the JSON report,
    and parses the JSON to return the ingredients list
