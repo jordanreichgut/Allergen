@@ -12,7 +12,11 @@ export default class ProductInfo extends React.Component {
     this.state = {
         data: null, 
         loaded: true, 
-        error: null
+        error: null,
+        Ingredients: [],
+        IngredientColor: [],
+        Allergic: [],
+        NonAllergic: [],
     }
   }
 
@@ -26,6 +30,10 @@ export default class ProductInfo extends React.Component {
     var url = this.baseURL + "ndbno=" + ndbno + "&api_key=" + api_key;
     var allergens = this.props.navigation.state.params.data.Allergens;  
 
+    for (var i = 0; i < allergens.length; i++) {
+      console.log(allergens[i]);
+    }
+
     fetch(url)
       .then(res => {
 
@@ -33,6 +41,8 @@ export default class ProductInfo extends React.Component {
         var bodyText = JSON.parse(res._bodyText)
         var ingredientsString = bodyText.report.food.ing.desc;
         var ingredients = ingredientsString.split(",");
+        var allergicList = [];
+        var nonallergicList = [];
 
         // Format ingredients list
         for (var i = 0; i < ingredients.length; i++) {
@@ -50,9 +60,7 @@ export default class ProductInfo extends React.Component {
           ingredients.pop();
         }
 
-
         for (var i = 0; i < ingredients.length; i++) {
-          
           if (ingredients[i].includes(":")) {
             var x = ingredients[i].indexOf(":") + 2;
             ingredients[i] = ingredients[i].substring(x, ingredients[i].length);
@@ -74,18 +82,68 @@ export default class ProductInfo extends React.Component {
           console.log(ingredients[i]);
         }
 
-        return ingredients;
+        this.setState({Ingredients: ingredients});
+        this.setState({IngredientColor: ingredientColor});
+
+        var allergenDict = {
+          "Corn": ["acetic acid", "alcohol", "alpha tocopherol", "ascorbic acid", "aspartame", "astaxanthin"],
+          "Dairy": ["artificial butter", "LIME JUICE", "butter fat", "buttermilk"],
+          "Gluten": ["barley", "breading", "bread stuffing", "brewer's yeast"],
+          "Wheat": ["HABANERO PEPPERS", "flour", "bulgur"]
+        };
+    
+        var ingredientColor = [];
+    
+        
+        for(let i=0; i<ingredients.length; i++) {
+          for(let j=0; j<allergens.length; j++) {
+            for(var key in allergenDict) {
+              if (allergens.includes(key)) {
+                if(allergenDict[key].includes(ingredients[i])){
+                    ingredientColor.push("red");
+                }
+                else {
+                    ingredientColor.push("green");  
+                }
+                }
+              }
+          } 
+        }
+
+        console.log("\n\n\n");
+        for (var i = 0; i < ingredients.length; i++) {
+          console.log(ingredientColor[i]);
+        }
+
+
+        for (var i = 0; i < ingredients.length; i++) {
+          if (ingredientColor[i] == "green") {
+            nonallergicList.push(ingredients[i])
+          } else {
+            allergicList.push(ingredients[i]);
+          }
+        }
+        
+        this.setState({Allergic: allergicList});
+        this.setState({NonAllergic: nonallergicList});
 
       })
       .then(this.showData)
       .catch(this.badStuff)
   }
 
+ 
 
   render() {
     return (
       <View>
-        <Text style={styles.txt}>This is the API call screen!</Text>
+        
+        {this.state.Allergic.map((item, key) => (
+          <Text key={key} style={styles.allergic}>{item}</Text>
+        ))}
+        {this.state.NonAllergic.map((item, key) => (
+          <Text key={key} style={styles.nonAllergic} >{item}</Text>
+        ))}
         <Button title="Get data" onPress={this.getData.bind(this)} />
       </View>
     );
@@ -107,5 +165,11 @@ const styles = StyleSheet.create({
   txt:{
     fontSize: 24,
     color: '#333'
-  }
+  },
+  allergic: {
+    color: 'red'
+  },
+  notAllergic: {
+    color: 'green'
+  },
 });
