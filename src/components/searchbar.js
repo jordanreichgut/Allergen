@@ -10,14 +10,16 @@ export default class SearchBar extends Component {
   }
 
   render() {
+    const handleSearchInput = this.props.handleSearchInput;
     return (
         <View style={{ padding: 10 }}>
             <TextInput
                 style={{height: 50, width: 230, fontFamily: "Hiragino Sans", backgroundColor: '#fff', borderColor: 'gray', borderWidth: 1, padding: 10}}
-                placeholder="Enter a food or drink product"
+                placeholder="Enter a food product"
                 onChangeText={
                     (typedText) => {
-                        this.setState({text: typedText})
+                        this.setState({text: typedText});
+                        handleSearchInput(typedText);
                     }
                 }
                 value={this.state.text}
