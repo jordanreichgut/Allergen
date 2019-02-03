@@ -30,18 +30,18 @@ export default class SearchResults extends React.Component {
   // }
 
   componentDidMount() {
-    let searchTerm = "peanut butter"; // GET FROM SEARCH BAR
+    var searchTerm = "peanut butter"; // GET FROM SEARCH BAR
 
-    // Construct URL for database query from search entry
-    let splitSearch = searchTerm.split(" ");
-    let urlPart1 = "https://ndb.nal.usda.gov/ndb/search/list?fgcd=&manu=&lfacet=&count=&max=50&sort=default&qlookup=";
-    let urlPart2 = "&offset=&format=Full&new=&measureby=&ds=&order=asc&qt=&qp=&qa=&qn=&q=&ing="
-    let urlSearch = "";
+    // Construct URL for database query from user's search entry
+    var splitSearch = searchTerm.split(" ");
+    var urlPart1 = "https://ndb.nal.usda.gov/ndb/search/list?fgcd=&manu=&lfacet=&count=&max=50&sort=default&qlookup=";
+    var urlPart2 = "&offset=&format=Full&new=&measureby=&ds=&order=asc&qt=&qp=&qa=&qn=&q=&ing="
+    var urlSearch = "";
     for (var i = 0; i < splitSearch.length-1; i++) {
       urlSearch += splitSearch[i] + "+";
     }
     urlSearch += splitSearch[splitSearch.length-1];
-    let url = urlPart1 + urlSearch + urlPart2;
+    var url = urlPart1 + urlSearch + urlPart2;
 
     fetch(url)
        .then(res => {
@@ -49,11 +49,11 @@ export default class SearchResults extends React.Component {
             this.setState({myResponse : encodeURIComponent(res)})
             //console.log(res)
 
-            let str = JSON.stringify(res);
-            let arr = str.split('reports for this food');
-            let names = [];
-            let ndbs = [];
-            let final = [];
+            var str = JSON.stringify(res);
+            var arr = str.split('reports for this food');
+            var names = [];
+            var ndbs = [];
+            var final = [];
 
             // Populate names array with names
             for (var i = 0; i < arr.length; i += 2) {
@@ -89,9 +89,9 @@ export default class SearchResults extends React.Component {
             return final;
 
           }
-          else {
-            throw new Error(res)
-          }
+        else {
+          throw new Error(res)
+        }
       })
   }
 

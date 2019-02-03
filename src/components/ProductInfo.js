@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View , Button, ScrollView} from 'react-native';
 
-/* Takes the array of {name, NDB} from SearchResults,
+/* Takes the selected {name, NDB} from SearchResults,
    plugs the NDB into the URL to retrieve the JSON report,
    and parses the JSON to return the ingredients list
 */
@@ -18,26 +18,51 @@ export default class ProductInfo extends React.Component {
   baseURL = "https://api.nal.usda.gov/ndb/reports?format=json&";
 
 
-  getData = (ev) => {
+  getData = () => {
     this.setState({loaded: false, error: null});
 
-    let api_key = "maUyiMgir3JonvoGJrWyFI6DclaMeFFuvLvbgFMT";
-    let ndbno = "45015542"; // CHANGE LATER
-    let url = this.baseURL + ndbno + "&api_key=" + api_key;
+    var api_key = "maUyiMgir3JonvoGJrWyFI6DclaMeFFuvLvbgFMT";
+    var ndbno = "45015542"; // CHANGE LATER
+    var url = this.baseURL + "ndbno=" + ndbno + "&api_key=" + api_key;    
 
+    fetch(url)
+    .then(res => {
 
+      // Parse JSON
+      var bodyText = JSON.parse(res._bodyText)
+      var ingredientsString = bodyText.report.food.ing.desc;
+      var ingredients = ingredientsString.split(",");
 
-    // UNFINISHED!!!!!!!!!!!
+      // Format ingredients list
+      for (var i = 0; i < ingredients.length; i++) {
+        if (ingredients[i].includes("(")) {
+          ingredients[i] = ingredients[i].split("(");
+        }
+        if (ingredients[i].includes(")")) {
+          ingredients[i] = ingredients[i].split(")");
+        }
+      }
 
+      ingredients = ingredients.flat();
 
-    let req = new Request(url, {
-      headers: h,
-      method: 'GET'
-    });
-    
+      if (ingredients[ingredients.length-1] == ".") {
+        ingredients.pop();
+      }
 
-    fetch(req)
-    .then(response => response.json())
+      for (var i = 0; i < ingredients.length; i++) {
+        ingredients[i] = ingredients[i].trim();
+        if (ingredients[i].includes(":")) {
+          var x = ingredients[i].indexOf(":") + 2;
+          ingredients[i] = ingredients[i].substring(x, ingredients[i].length);
+        }
+      }
+
+      // Remove duplicates
+      ingredients = [...new Set(ingredients)];
+
+      return ingredients;
+
+    })
     .then(this.showData)
     .catch(this.badStuff)
   }
@@ -81,20 +106,10 @@ export default class ProductInfo extends React.Component {
 
   render() {
     return (
-      <ScrollView>
-
-        {!this.state.loaded && (<Text>LOADING</Text>)}
-        <Text style = {styles.txt}>This is the API call screen!</Text>
-        <Button title = "Get Data"
-                onPress = {this.getData} />
-        {this.state.error && (<Text style={styles.err}>{this.state.error}</Text>)}
-        {this.state.data && this.state.data.length > 0 && (
-         this.state.data.map(comment => (
-            <Text key={comment.id} style={styles.txt}>{comment.email}</Text>
-          ))
-        )}
-        
-      </ScrollView>
+      <View>
+        <Text style={styles.txt}>This is the API call screen!</Text>
+        <Button title="Get data" onPress={this.getData.bind(this)} />
+      </View>
     );
   }
 }
