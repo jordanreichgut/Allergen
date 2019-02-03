@@ -13,7 +13,7 @@ export default class SearchBar extends Component {
     return (
         <View style={{ padding: 10 }}>
             <TextInput
-                style={{height: 50, borderColor: 'gray', borderWidth: 1, padding: 10}}
+                style={{height: 50, width: 230, fontFamily: "Hiragino Sans", backgroundColor: '#fff', borderColor: 'gray', borderWidth: 1, padding: 10}}
                 placeholder="Enter a food or drink product"
                 onChangeText={
                     (typedText) => {

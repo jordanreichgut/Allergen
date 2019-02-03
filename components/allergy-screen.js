@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, ScrollView, Text, StyleSheet} from 'react-native';
-import { createStackNavigator } from 'react-navigation';
+import {ImageBackground} from 'react-native';
 
 class AllergyScreen extends React.Component {
     static navigationOptions = {
@@ -95,30 +95,34 @@ class AllergyScreen extends React.Component {
     render() {
         const {navigate} = this.props.navigation;
         return (
-            <ScrollView>
-                <Text onPress={this.handleCornPress} 
-                      style={this.state.cornChecked ? styles.checked : styles.unchecked}>Corn</Text>
-                <Text onPress={this.handleDairyPress} 
-                      style={this.state.dairyChecked ? styles.checked : styles.unchecked}>Dairy</Text>
-                <Text onPress={this.handleGlutenPress} 
-                      style={this.state.glutenChecked ? styles.checked : styles.unchecked}>Gluten</Text>
-                <Text onPress={this.handleWheatPress} 
-                      style={this.state.wheatChecked ? styles.checked : styles.unchecked}>Wheat</Text>
-                <Text onPress={this.handleEggsPress} 
-                      style={this.state.eggsChecked ? styles.checked : styles.unchecked}>Eggs</Text>
-                <Text onPress={this.handleFishPress} 
-                      style={this.state.fishChecked ? styles.checked : styles.unchecked}>Fish</Text>
-                <Text onPress={this.handleShellfishPress} 
-                      style={this.state.shellfishChecked ? styles.checked : styles.unchecked}>Shellfish</Text>
-                <Text onPress={this.handlePeanutsPress} 
-                      style={this.state.peanutsChecked ? styles.checked : styles.unchecked}>Peanuts</Text>
-                <Text onPress={this.handleTreeNutsPress} 
-                      style={this.state.treeNutsChecked ? styles.checked : styles.unchecked}>Tree Nuts</Text>
-                <Text onPress={this.handleSoyPress} 
-                      style={this.state.soyChecked ? styles.checked : styles.unchecked}>Soy</Text>
-                <Text onPress={this.handle$trawberryPress} 
-                      style={this.state.$trawberryChecked ? styles.checked : styles.unchecked}>$trawberries</Text>
-            </ScrollView>
+            <ImageBackground
+                source = {{uri:'https://i.pinimg.com/originals/51/17/90/5117908f2bd3aa0e0aaf4f2655cd8bfa.jpg'}}
+                style = {{width: 400, height: 800}}>
+                <ScrollView>
+                    <Text onPress={this.handleCornPress} 
+                        style={this.state.cornChecked ? styles.checked : styles.unchecked}>Corn</Text>
+                    <Text onPress={this.handleDairyPress} 
+                        style={this.state.dairyChecked ? styles.checked : styles.unchecked}>Dairy</Text>
+                    <Text onPress={this.handleGlutenPress} 
+                        style={this.state.glutenChecked ? styles.checked : styles.unchecked}>Gluten</Text>
+                    <Text onPress={this.handleWheatPress} 
+                        style={this.state.wheatChecked ? styles.checked : styles.unchecked}>Wheat</Text>
+                    <Text onPress={this.handleEggsPress} 
+                        style={this.state.eggsChecked ? styles.checked : styles.unchecked}>Eggs</Text>
+                    <Text onPress={this.handleFishPress} 
+                        style={this.state.fishChecked ? styles.checked : styles.unchecked}>Fish</Text>
+                    <Text onPress={this.handleShellfishPress} 
+                        style={this.state.shellfishChecked ? styles.checked : styles.unchecked}>Shellfish</Text>
+                    <Text onPress={this.handlePeanutsPress} 
+                        style={this.state.peanutsChecked ? styles.checked : styles.unchecked}>Peanuts</Text>
+                    <Text onPress={this.handleTreeNutsPress} 
+                        style={this.state.treeNutsChecked ? styles.checked : styles.unchecked}>Tree Nuts</Text>
+                    <Text onPress={this.handleSoyPress} 
+                        style={this.state.soyChecked ? styles.checked : styles.unchecked}>Soy</Text>
+                    <Text onPress={this.handle$trawberryPress} 
+                        style={this.state.$trawberryChecked ? styles.checked : styles.unchecked}>$trawberries</Text>
+                </ScrollView>
+            </ImageBackground>
         );
     }
 }
@@ -132,12 +136,14 @@ const styles = StyleSheet.create({
     },
     unchecked: {
         fontSize: 20,
+        fontFamily: "Hiragino Sans",
         padding: 10,
     },
     checked: {
         fontSize: 20,
         padding: 10,
-        backgroundColor: 'rgb(179, 216, 253)'
+        fontFamily: "Hiragino Sans",
+        backgroundColor: '#f4f07a'
     },
 });
 
