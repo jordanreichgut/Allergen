@@ -12,7 +12,7 @@ class HomeScreen extends React.Component {
         const {navigate} = this.props.navigation;
         return (
             <ImageBackground
-            source = {{uri:'https://images.template.net/wp-content/uploads/2016/02/05120041/Food-Salad-Instagram-Hunger-City-Life-Flare-iPhone6-Background.jpg'}}
+            source = {{uri:'https://i.pinimg.com/originals/60/fb/ee/60fbeed6efc901bbc0d8aef587f971f9.jpg?fbclid=IwAR2AI6I89IX5tgRXm_NHdU38y9-nLgoc9deCL8J7eSzpmaVMgprvD7hYNgw'}}
             style = {{width: 400, height: 800}}>
                 <View style={styles.container}>
                     <SearchBar />

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View } from 'react-native';
-import RootNav from './components/navigator.js';
+import RootNav from './src/components/navigator.js';
 
 
 export default class App extends React.Component {

@@ -113,8 +113,6 @@ class AllergyScreen extends React.Component {
                         style={this.state.treeNutsChecked ? styles.checked : styles.unchecked}>Tree Nuts</Text>
                     <Text onPress={this.handleSoyPress} 
                         style={this.state.soyChecked ? styles.checked : styles.unchecked}>Soy</Text>
-                    <Text onPress={this.handle$trawberryPress} 
-                        style={this.state.$trawberryChecked ? styles.checked : styles.unchecked}>$trawberries</Text>
                 </ScrollView>
             </ImageBackground>
         );
