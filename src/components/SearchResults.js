@@ -30,7 +30,7 @@ export default class SearchResults extends React.Component {
   // }
 
   componentDidMount() {
-    let searchTerm = "ben and jerrys ice cream"; // GET FROM SEARCH BAR
+    let searchTerm = "peanut butter"; // GET FROM SEARCH BAR
 
     // Construct URL for database query from search entry
     let splitSearch = searchTerm.split(" ");
@@ -51,10 +51,15 @@ export default class SearchResults extends React.Component {
 
             let str = JSON.stringify(res);
             let arr = str.split('reports for this food');
+            let names = [];
+            let ndbs = [];
             let final = [];
 
+            for (var i = 0; i < arr.length; i++) {
+              console.log("\n\n\n" + arr[i] + "\n\n\n");
+            }
 
-            // Populate final with every entry
+            // Populate names array with names (keeps garbage element)
             for (var i = 0; i < arr.length; i += 2) {
               var j = arr[i].indexOf("<");
               element = arr[i].substring(10, j-10);
@@ -62,7 +67,26 @@ export default class SearchResults extends React.Component {
 
               // NOTE: special characters (&amp) aren't formatted
 
-              final.push(trimmed);
+              names.push(trimmed);
+            }
+
+            // Populate ndbs array with NDBs
+            for (var i = 1; i < arr.length; i += 2) {
+              var j = arr[i].indexOf("<");
+              element = arr[i].substring(10, j);
+              trimmed = element.trim();
+              ndbs.push(trimmed);
+            }
+            
+            // Populate final with combined name/ndb objects
+            for (var i = 0; i < names.length; i++) {
+              final.push({"name": names[i], "ndb": ndbs[i]})
+            }
+
+            final.shift();
+
+            for (var i = 0; i < final.length; i++) {
+              console.log(final[i]);
             }
 
             return final;

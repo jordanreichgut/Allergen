@@ -1,8 +1,9 @@
 import React from 'react';
 import { StyleSheet, Text, View , Button, ScrollView} from 'react-native';
 
-/* Takes UPC of user-selected database entry,
-   and uses Josh Terill's API to retrieve ingredients list
+/* Takes the array of {name, NDB} from SearchResults,
+   plugs the NDB into the URL to retrieve the JSON report,
+   and parses the JSON to return the ingredients list
 */
 export default class ProductInfo extends React.Component {
   constructor() {
@@ -13,8 +14,6 @@ export default class ProductInfo extends React.Component {
         error: null
     }
   }
-
-
 
   baseURL = "https://api.nal.usda.gov/ndb/reports?format=json&";
 
