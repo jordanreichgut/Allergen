@@ -1,6 +1,10 @@
 import React from 'react';
 import { StyleSheet, Text, View , Button, ScrollView} from 'react-native';
 
+/* Takes search term from SearchBar.js,
+   constructs URL to search database,
+   and returns a string array with the search results
+*/
 export default class SearchResults extends React.Component {
 
   constructor(props) {
@@ -10,112 +14,65 @@ export default class SearchResults extends React.Component {
     }
   }
 
+  // CALLING THIS IN componentDidMount() DOESNT WORK
+
+  // extractAlphaNum = (str) => {
+  //   result = "";
+  //   for (var i = 0; i < str.length; i++) {
+  //     code = str.charCodeAt(i);
+  //     if ((code > 47 && code < 58) && // numeric (0-9)
+  //         (code > 64 && code < 91) && // upper alpha (A-Z)
+  //         (code > 96 && code < 123)) { // lower alpha (a-z)
+  //           result.concat(str[i]);
+  //         }
+  //   }
+  //   return result;
+  // }
+
   componentDidMount() {
-    fetch('http://google.com')
+    let searchTerm = "ben and jerrys ice cream"; // GET FROM SEARCH BAR
+
+    // Construct URL for database query from search entry
+    let splitSearch = searchTerm.split(" ");
+    let urlPart1 = "https://ndb.nal.usda.gov/ndb/search/list?fgcd=&manu=&lfacet=&count=&max=50&sort=default&qlookup=";
+    let urlPart2 = "&offset=&format=Full&new=&measureby=&ds=&order=asc&qt=&qp=&qa=&qn=&q=&ing="
+    let urlSearch = "";
+    for (var i = 0; i < splitSearch.length-1; i++) {
+      urlSearch += splitSearch[i] + "+";
+    }
+    urlSearch += splitSearch[splitSearch.length-1];
+    let url = urlPart1 + urlSearch + urlPart2;
+
+    fetch(url)
        .then(res => {
           if (res.ok) {
-            //this.setState({res : JSON.stringify(res.json())})
             this.setState({myResponse : encodeURIComponent(res)})
-            console.log(res)
-            return res.json()
+            //console.log(res)
+
+            let str = JSON.stringify(res);
+            let arr = str.split('reports for this food');
+            let final = [];
+
+
+            // Populate final with every entry
+            for (var i = 0; i < arr.length; i += 2) {
+              var j = arr[i].indexOf("<");
+              element = arr[i].substring(10, j-10);
+              trimmed = element.trim();
+
+              // NOTE: special characters (&amp) aren't formatted
+
+              final.push(trimmed);
+            }
+
+            return final;
+
           }
           else {
             throw new Error(res)
           }
       })
-      .then(json => {
-         for (var key in json) {
-           // now you can parse it by calling json[key]
-           console.log(json[key])
-         }})
-       .catch(error => console.log(error))
   }
-
-
-  // componentDidMount() {
-  //   let searchTerm = "peanut butter"; // GET FROM SEARCH BAR
-  //   let splitSearch = searchTerm.split(" ");
-  //   let urlPart1 = "https://ndb.nal.usda.gov/ndb/search/list?fgcd=&manu=&lfacet=&count=&max=50&sort=default&qlookup=";
-  //   let urlPart2 = "&offset=&format=Full&new=&measureby=&ds=&order=asc&qt=&qp=&qa=&qn=&q=&ing="
-  //   let urlSearch = "";
-  //   for (var i = 0; i < splitSearch.length-1; i++) {
-  //     urlSearch += splitSearch[i] + "+";
-  //   }
-  //   urlSearch += splitSearch[splitSearch.length-1];
-
-  //   let url = urlPart1 + urlSearch + urlPart2;
-
-  //   fetch(url)
-  //     .then(res => {
-  //         if (res.ok) {
-  //           console.log("\n\n\n" + res + "\n\n\n")
-  //             //this.setState({res : JSON.stringify(res.json())})
-  //             this.setState({myResponse : encodeURIComponent(res)})
-  //             console.log(encodeURIComponent(res))
-  //             return res.json()
-  //         }
-  //         else {
-  //             throw new Error(res)
-  //         }
-  //     })
-  //     .then(json => {
-  //       for (var key in json) {
-  //         // now you can parse it by calling json[key]
-  //         console.log(json[key])
-  //       }})
-  //     .catch(error => console.log(error))
-  //   }
-
-  // constructor() {
-  //   super();
-  //   this.state = {
-  //       data: null, 
-  //       loaded: true, 
-  //       error: null
-  //   }
-  // }
-
-
-
-//   baseURL = "https://api.nal.usda.gov/ndb/reports?format=json&";
-
-
-//   getData = (ev)=> {
-//     this.setState({loaded: false, error: null});
-
-//     let api_key = "maUyiMgir3JonvoGJrWyFI6DclaMeFFuvLvbgFMT";
-//     let ndbno = "45015542"; // CHANGE LATER
-//     let url = this.baseURL + ndbno + "&api_key=" + api_key;
-
-
-
-//     // UNFINISHED!!!!!!!!!!!
-
-
-//     let req = new Request(url, {
-//       headers: h,
-//       method: 'GET'
-//     });
-    
-
-//     fetch(req)
-//     .then(response => response.json())
-//     .then(this.showData)
-//     .catch(this.badStuff)
-//   }
-
-
-
-//   showData = (data) => {
-//     this.setState({loaded:true, data});
-//   }
-    
-//   badStuff = (err) => {
-//     this.setState({loaded: true, error: err.message});
-//   }
-
-
-  
 
 
 
