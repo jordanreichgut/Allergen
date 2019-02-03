@@ -1,16 +1,18 @@
 import React from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
-import SearchBar from './searchbar.js';
-import AllergyScreen from './allergy-screen.js';
-import HomeScreen from './homescreen.js';
-import SearchScreen from './searchscreen.js';
+import SearchBar from './SearchBar.js';
+import AllergyScreen from './AllergyScreen.js';
+import HomeScreen from './HomeScreen.js';
+import SearchScreen from './SearchScreen.js';
+import ProductInfo from './ProductInfo.js';
 
 const RootNav = createStackNavigator(
     {
         Home: {screen: HomeScreen},
         Allergies: {screen: AllergyScreen},
-        SearchScreen: {screen: SearchScreen}
+        SearchScreen: {screen: SearchScreen},
+        ProductInfo: {screen: ProductInfo},
     }, 
 );
 

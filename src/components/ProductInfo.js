@@ -1,8 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View , Button, ScrollView} from 'react-native';
 
-// jordan2
-
 /* Takes the selected {name, NDB} from SearchResults,
    plugs the NDB into the URL to retrieve the JSON report,
    and parses the JSON to return the ingredients list
@@ -24,7 +22,7 @@ export default class ProductInfo extends React.Component {
     this.setState({loaded: false, error: null});
 
     var api_key = "maUyiMgir3JonvoGJrWyFI6DclaMeFFuvLvbgFMT";
-    var ndbno = "45015542"; // CHANGE LATER
+    var ndbno = this.props.navigation.state.params.data.ndb;
     var url = this.baseURL + "ndbno=" + ndbno + "&api_key=" + api_key;    
 
     fetch(url)
@@ -61,6 +59,10 @@ export default class ProductInfo extends React.Component {
 
       // Remove duplicates
       ingredients = [...new Set(ingredients)];
+
+      for (var i = 0; i < ingredients.length; i++) {
+        console.log(ingredients[i]);
+      }
 
       return ingredients;
 
