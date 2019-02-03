@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View , Button, ScrollView} from 'react-native';
 
-export default class APICall extends React.Component {
+export default class ProductInfo extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -13,15 +13,20 @@ export default class APICall extends React.Component {
 
 
 
-  baseURL = "https://jsonplaceholder.typicode.com";
+  baseURL = "https://api.nal.usda.gov/ndb/reports?format=json&";
 
 
   getData = (ev)=> {
     this.setState({loaded: false, error: null});
-    let url = this.baseURL + '/comments';
-    let h = new Headers(); //key
-    h.append('Authorization', 'Bearer fjsdaffjsdkflkslafjdsfjdfjsjf');
-    h.append('X-Client', 'Steve and Friends');
+
+    let api_key = "maUyiMgir3JonvoGJrWyFI6DclaMeFFuvLvbgFMT";
+    let ndbno = "45015542"; // CHANGE LATER
+    let url = this.baseURL + ndbno + "&api_key=" + api_key;
+
+
+
+    // UNFINISHED!!!!!!!!!!!
+
 
     let req = new Request(url, {
       headers: h,
