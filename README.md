@@ -1,6 +1,6 @@
-Developers: Jordan Reichgut, Eileen Mao, Sarah Jang, Christina Di
-Made at PennApps XIX, University of Pennsylvania
-February 2019
+Developers: Jordan Reichgut, Eileen Mao, Sarah Jang, Christina Di<br/>
+Made at PennApps XIX, University of Pennsylvania<br/>
+February 2019<br/>
 
 SUMMARY
 
@@ -19,7 +19,7 @@ GOING FORWARD
 Allergen is a useful tool that was born out of necessity (our teammate Jordan has wheat and corn allergies). As many as 15 million people in the U.S. alone are allergic to at least one food. All those people would benefit from a tool like Allergen. Therefore, this app has the potential to be more than a hackathon project. We plan to develop it further and eventually publish it.
 
 
-Jordan Reichgut - CMU Information Systems '20 
-Eileen Mao - CMU Information Systems '21
-Sarah Jang - CMU Electrical & Computer Engineering '21
-Christina Di - CMU Electrical & Computer Engineering '21
+Jordan Reichgut - CMU Information Systems '20<br/>
+Eileen Mao - CMU Information Systems '21<br/>
+Sarah Jang - CMU Electrical & Computer Engineering '21<br/>
+Christina Di - CMU Electrical & Computer Engineering '21<br/>
